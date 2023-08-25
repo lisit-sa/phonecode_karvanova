@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Widget for form</title>
+    <link rel="stylesheet" href="phonecode.css">
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="counties.js"></script>
+    <script src="phonecode.js"></script>
+    <script>
+        $(function () {
+            var jsonResponse = '';
+            (async function _getCountry() {
+                const request = await fetch("https://ipinfo.io/json?token=9c60524759c907");
+                jsonResponse = await request.json();
+
+                _setCountry();
+            })()
+
+            function _setCountry() {
+                let country = String(jsonResponse.country).toLowerCase()
+
+                $('#phone').phonecode({
+                    preferCo: country
+                });
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Request your demo</h2>
+        <form autocomplete="off" class="request_form" novalidate="" data-gtm-form-interact-id="0">
+            
+            <div class="field">
+                <input class="field_first_name" id="first_name" type="text" value="">
+                <p class="field_name">First name*</p>
+                <p class="hint">Please enter your first name</p>
+            </div>
+            <div class="field">
+                <input class="field_last_name" id="last_name" type="text" value="">
+                <p class="field_name">Last name*</p>
+                <p class="hint">Please enter your last name</p>
+            </div>
+            <div class="field field_email__wrap">
+                <input class="field_email" id="email" type="email" value="">
+                <p class="field_name">Work email*</p>
+                <p class="hint">Please enter a valid email address</p>
+            </div>
+            <div class="field field_phone__wrap">
+                <div class="field_phone">
+                    <input type="text" id="phone" class="phone" name="phone" value="+972" autofocus="true" placeholder="9990000000">
+                    <p class="field_name field_name__phone">Phone number*</p>
+                    <p class="hint">Phone number is too short</p>
+                </div>
+            </div>
+            <div class="field">
+                <input id="company_name" type="text" value="">
+                <p class="field_name">Company name*</p>
+                <p class="hint">Please enter your company name</p>
+            </div>
+            <div class="field field_company_size">
+                <select id="company_size">
+                    <option value="" selected="" hidden=""></option>
+                    <option value="1">Solo</option>
+                    <option value="2-10">2-10</option>
+                    <option value="11-50">11-50</option>
+                    <option value="51-200">51-200</option>
+                    <option value="201-500">201-500</option>
+                    <option value="501-1000">501-1000</option>
+                    <option value="1001+">1001+</option>
+                </select>
+                <p class="field_name">Company size*</p>
+                <svg class="select_arrow" height="6" width="9"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.73 0l1 1-4.37 4.36L0 1l1-1 3.36 3.36z" fill="#888"></path>
+                </svg>
+            </div>
+            <button class="submit_btn">Schedule your demo</button>
+            <div class="terms_block">By submitting this form, I agree that the <a 
+                    href="https://www.pandadoc.com/terms-of-use/" target="_blank" rel="noreferrer">Terms of Service</a> and
+                <a class="sc-dAbbOL innbBa" href="https://www.pandadoc.com/privacy-notice/" target="_blank"
+                    rel="noreferrer">Privacy Notice</a> will govern the use of services I receive and personal data I
+                provide respectively.</div>
+        </form>
+    </div>
+
+    
+</body>
+
+</html>
